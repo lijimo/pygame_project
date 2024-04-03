@@ -8,8 +8,9 @@ MARGIN = 4
 
 ASSET_DIR = 'assets'
 print('directory:')
-print(os.listdir(ASSET_DIR))
-ASSET_FILES = [x for x in os.listdir(ASSET_DIR) if x[-3].lower() == 'png'] 
+ASSET_FILES = [x for x in os.listdir(ASSET_DIR) if x[-3:].lower() == 'png'] 
+print(ASSET_FILES)
 # check if there are all required tiles
+print(len(ASSET_FILES))
 assert len(ASSET_FILES) == 8
 

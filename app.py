@@ -19,6 +19,7 @@ matched = transform.scale(matched, (512, 512))
 
 running = True
 tiles = [Animal(i) for i in range(0, gc.NUM_TILES_TOTAL)]
+current_images = []
 
 while running:
     # list of all keyboard and mouse events
@@ -33,13 +34,14 @@ while running:
         if e.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             index = find_index(mouse_x, mouse_y)
+            current_images.append(index)
 
     # initial blank screen
     screen.fill((255,255,255))
     # display animals
     for tile in tiles:
         screen.blit(tile.image, (tile.col * gc.IMAGE_SIZE + gc.MARGIN, tile.row * gc.IMAGE_SIZE + gc.MARGIN))
+    
     display.flip()
-
 
 print("Bye, bye!") 

@@ -4,13 +4,17 @@ The Simple Memory Game is a Python-based project designed to test and enhance me
 
 ## Installation
 1. Clone the repository:
+   
    `git clone "https://github.com/lijimo/pygame_project.git"`
 
-2. Install dependencies:
-`pip install -r requirements.txt`
+3. Install dependencies:
+   
+   `pip install -r requirements.txt`
 
 ## Usage
-To run the game and start playing, simply navigate to the pygame folder and execute the following commands:
-`cd .../pygame_project`
+To run the game and start playing, simply navigate to the pygame folder and execute the following commands: 
+
+`cd .../pygame_project` 
+
 `python app.py`
 

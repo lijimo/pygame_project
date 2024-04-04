@@ -35,18 +35,26 @@ while running:
         if e.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             index = find_index(mouse_x, mouse_y)
-            current_images.append(index)
+            if index not in current_images:
+                current_images.append(index)
             # only display two animals at a time
             if len(current_images) > 2:
                 current_images = current_images[1:]
 
     # initial blank screen
     screen.fill((255,255,255))
+
+    total_skipped = 0
+
     # display animals
     for i, tile in enumerate(tiles):
         image_i = tile.image if i in current_images else tile.box
         if not tile.skip:
             screen.blit(image_i, (tile.col * gc.IMAGE_SIZE + gc.MARGIN, tile.row * gc.IMAGE_SIZE + gc.MARGIN))
+        else:
+            total_skipped += 1
+
+    display.flip()
     
     # check for match
     if len(current_images) == 2:
@@ -54,8 +62,13 @@ while running:
         if tiles[index1].name == tiles[index2].name:
             tiles[index1].skip = True
             tiles[index2].skip = True
+            sleep(0.5)
+            screen.blit(matched, (0,0))
+            display.flip()
+            sleep(0.5)
             current_images = []
-
-    display.flip()
+    
+    if total_skipped == len(tiles):
+        running = False
 
 print("Bye, bye!") 

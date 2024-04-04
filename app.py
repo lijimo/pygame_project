@@ -2,6 +2,7 @@ import pygame
 import game_config as gc
 from pygame import display, event, image, transform
 from animal import Animal
+from time import sleep
 
 def find_index(x, y):
     row = y // gc.IMAGE_SIZE
@@ -35,13 +36,26 @@ while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             index = find_index(mouse_x, mouse_y)
             current_images.append(index)
+            # only display two animals at a time
+            if len(current_images) > 2:
+                current_images = current_images[1:]
 
     # initial blank screen
     screen.fill((255,255,255))
     # display animals
-    for tile in tiles:
-        screen.blit(tile.image, (tile.col * gc.IMAGE_SIZE + gc.MARGIN, tile.row * gc.IMAGE_SIZE + gc.MARGIN))
+    for i, tile in enumerate(tiles):
+        image_i = tile.image if i in current_images else tile.box
+        if not tile.skip:
+            screen.blit(image_i, (tile.col * gc.IMAGE_SIZE + gc.MARGIN, tile.row * gc.IMAGE_SIZE + gc.MARGIN))
     
+    # check for match
+    if len(current_images) == 2:
+        index1, index2 = current_images
+        if tiles[index1].name == tiles[index2].name:
+            tiles[index1].skip = True
+            tiles[index2].skip = True
+            current_images = []
+
     display.flip()
 
 print("Bye, bye!") 
